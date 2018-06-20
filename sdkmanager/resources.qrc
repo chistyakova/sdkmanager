@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>metro.qss</file>
+        <file>img/light-arrow-down.png</file>
+        <file>img/light-arrow-down-hover.png</file>
+        <file>img/light-arrow-down-pressed.png</file>
+        <file>img/light-arrow-up.png</file>
+        <file>img/light-arrow-up-hover.png</file>
+        <file>img/light-arrow-up-pressed.png</file>
+        <file>img/quit.png</file>
+        <file>img/minimize.png</file>
+        <file>img/icon-sdk.ico</file>
+        <file>img/icon-title.png</file>
+    </qresource>
+</RCC>
