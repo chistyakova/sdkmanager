@@ -3,24 +3,26 @@
 #include <QColor>
 #include <QDebug>
 #include <QFont>
+#include <QFile>
 
 HostsListModel::HostsListModel(QObject *parent)
     : QAbstractListModel(parent)
 {
-    QStringList strList;
-    strList << "monitor" << "mouse" << "keyboard" << "hard disk drive"
-                << "graphic card" << "sound card" << "memory" << "motherboard";
-
-    for(int i=0; i<strList.size(); i++)
+    QFile file("hosts.txt");
+    if(file.exists() && file.open(QIODevice::ReadOnly))
     {
-        QPair<QString, bool> pair(strList.at(i), true);
-        hosts.push_back(pair);
+        while(!file.atEnd())
+        {
+            QPair<QString, bool> pair(file.readLine().trimmed(), true);
+            hosts.push_back(pair);
+        }
+        file.close();
     }
 }
 
 int HostsListModel::rowCount(const QModelIndex & /* parent */) const
 {
-    return 8;
+    return hosts.size();
 }
 QVariant HostsListModel::data(const QModelIndex &index, int role) const
 {
