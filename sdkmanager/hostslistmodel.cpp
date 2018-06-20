@@ -2,6 +2,7 @@
 
 #include <QColor>
 #include <QDebug>
+#include <QFont>
 
 HostsListModel::HostsListModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -28,8 +29,12 @@ QVariant HostsListModel::data(const QModelIndex &index, int role) const
     switch(role){
     case Qt::DisplayRole:
        return hosts.at(index.row()).first;
-    case Qt::ForegroundRole:
-        return QColor(Qt::blue);
+    case Qt::FontRole:
+    {
+        QFont font;
+        font.setBold(hosts.at(index.row()).second ? true : false);
+        return font;
+    }
     case Qt::CheckStateRole:
         return hosts.at(index.row()).second ?
                     Qt::Checked : Qt::Unchecked;
@@ -57,7 +62,7 @@ bool HostsListModel::setData(const QModelIndex &index,
 Qt::ItemFlags HostsListModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags defaultFlags = QAbstractListModel::flags(index);
-    if (!index.isValid())
+    if (index.isValid())
             return defaultFlags | Qt::ItemIsUserCheckable;
 
     return defaultFlags;
