@@ -592,7 +592,14 @@
            <widget class="QWidget" name="widgetGB_4" native="true">
             <layout class="QVBoxLayout" name="verticalLayout_9">
              <item>
-              <widget class="QListView" name="listViewHosts"/>
+              <widget class="QListView" name="listViewHosts">
+               <property name="alternatingRowColors">
+                <bool>false</bool>
+               </property>
+               <property name="selectionMode">
+                <enum>QAbstractItemView::NoSelection</enum>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
