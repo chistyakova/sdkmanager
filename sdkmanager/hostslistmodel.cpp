@@ -4,11 +4,13 @@
 #include <QDebug>
 #include <QFont>
 #include <QFile>
+#include <QCoreApplication>
+#include <QSize>
 
 HostsListModel::HostsListModel(QObject *parent)
     : QAbstractListModel(parent)
 {
-    QFile file("hosts.txt");
+    QFile file(QCoreApplication::applicationDirPath()+ "/" "hosts.txt");
     if(file.exists() && file.open(QIODevice::ReadOnly))
     {
         while(!file.atEnd())
@@ -36,6 +38,12 @@ QVariant HostsListModel::data(const QModelIndex &index, int role) const
         QFont font;
         font.setBold(hosts.at(index.row()).second ? true : false);
         return font;
+    }
+    case Qt::SizeHintRole:
+    {
+    QSize defSize;
+    defSize.setHeight(30);
+    return defSize;
     }
     case Qt::CheckStateRole:
         return hosts.at(index.row()).second ?
