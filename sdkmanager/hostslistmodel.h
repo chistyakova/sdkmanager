@@ -6,6 +6,9 @@
 #include <QModelIndex>
 #include <QVariant>
 #include <QPair>
+#include <QSettings>
+
+typedef QPair<QString, bool> pairType;
 
 class HostsListModel : public QAbstractListModel
 {
@@ -17,8 +20,11 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     Qt::ItemFlags flags(const QModelIndex &index) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
+
+    void onExit();
 private:
-    QVector<QPair<QString, bool>> hosts;
+    QVector<pairType> m_hosts;
+    QSettings         m_conf;
 };
 
 #endif // HOSTSLISTMODEL_H

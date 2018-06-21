@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QProcess>
-#include <QStringListModel>
 
 #include "hostslistmodel.h"
 
@@ -42,10 +41,13 @@ public slots:
 
     void handleMessage(const QString& message);
 
+protected:
+    void closeEvent(QCloseEvent *event);
+
 private:
     Ui::MainWindow *ui;
-    QProcess            m_process;
-    HostsListModel *model;
+    QProcess       m_process;
+    HostsListModel *m_model;
 };
 
 #endif // MAINWINDOW_H

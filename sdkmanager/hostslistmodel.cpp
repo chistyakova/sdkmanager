@@ -9,14 +9,19 @@
 
 HostsListModel::HostsListModel(QObject *parent)
     : QAbstractListModel(parent)
+    , m_conf("sdkmanager", "SDK manager")
 {
     QFile file(QCoreApplication::applicationDirPath()+ "/" "hosts.txt");
     if(file.exists() && file.open(QIODevice::ReadOnly))
     {
+        unsigned i=0;
         while(!file.atEnd())
         {
-            QPair<QString, bool> pair(file.readLine().trimmed(), true);
-            hosts.push_back(pair);
+            pairType pair(file.readLine().trimmed(),
+                          m_conf.contains(QString("key%1").arg(i)) ?
+                              m_conf.value(QString("key%1").arg(i)).toBool() : true);
+            m_hosts.push_back(pair);
+            i++;
         }
         file.close();
     }
@@ -24,7 +29,7 @@ HostsListModel::HostsListModel(QObject *parent)
 
 int HostsListModel::rowCount(const QModelIndex & /* parent */) const
 {
-    return hosts.size();
+    return m_hosts.size();
 }
 QVariant HostsListModel::data(const QModelIndex &index, int role) const
 {
@@ -32,21 +37,21 @@ QVariant HostsListModel::data(const QModelIndex &index, int role) const
             return QVariant();
     switch(role){
     case Qt::DisplayRole:
-       return hosts.at(index.row()).first;
+       return m_hosts.at(index.row()).first;
     case Qt::FontRole:
     {
         QFont font;
-        font.setBold(hosts.at(index.row()).second ? true : false);
+        font.setBold(m_hosts.at(index.row()).second ? true : false);
         return font;
     }
     case Qt::SizeHintRole:
     {
-    QSize defSize;
-    defSize.setHeight(30);
-    return defSize;
+        QSize defSize;
+        defSize.setHeight(30);
+        return defSize;
     }
     case Qt::CheckStateRole:
-        return hosts.at(index.row()).second ?
+        return m_hosts.at(index.row()).second ?
                     Qt::Checked : Qt::Unchecked;
     default:
         // Вот тут вернул QVartian вместо того что было, видимо предыдущий варинат только для QStringListModel
@@ -61,10 +66,9 @@ bool HostsListModel::setData(const QModelIndex &index,
         return false;
 
     if(value == Qt::Checked)
-        hosts[index.row()].second = true;
+        m_hosts[index.row()].second = true;
     else
-        hosts[index.row()].second = false;
-
+        m_hosts[index.row()].second = false;
     emit dataChanged(index, index);
     return true;
 }
@@ -76,4 +80,12 @@ Qt::ItemFlags HostsListModel::flags(const QModelIndex &index) const
             return defaultFlags | Qt::ItemIsUserCheckable;
 
     return defaultFlags;
+}
+
+void HostsListModel::onExit()
+{
+    for(int i=0; i<m_hosts.size(); i++)
+    {
+        m_conf.setValue(QString("key%1").arg(i), m_hosts.at(i).second);
+    }
 }

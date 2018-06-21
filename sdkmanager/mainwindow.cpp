@@ -5,7 +5,6 @@
 #include <QDebug>
 #include <QStringList>
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent, Qt::FramelessWindowHint | Qt::Window),
     ui(new Ui::MainWindow)
@@ -35,8 +34,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->pushButtonSColor_revertYes->setMode(ColorButton::Mode2);
     ui->pushButtonColor_revertNo->setMode(ColorButton::Mode2);
 
-    model = new HostsListModel(this);
-    ui->listViewHosts->setModel(model);
+    m_model = new HostsListModel(this);
+    ui->listViewHosts->setModel(m_model);
 
     on_hostChange();
     setWindowIcon(QIcon(":/img/icon-sdk.ico"));
@@ -128,6 +127,7 @@ void MainWindow::runProcess(QString const& name)
 
 void MainWindow::on_finished(int exitCode, QProcess::ExitStatus exitStatus)
 {
+    Q_UNUSED(exitStatus);
     if(exitCode > 0)
     {
         ui->textBrowserCmd->setStyleSheet("QTextEdit {background-color: rgb(253, 220, 193)}"); // красный
@@ -193,7 +193,14 @@ void MainWindow::on_hostChange()
 
 void MainWindow::handleMessage(const QString& message)
 {
+    Q_UNUSED(message);
     this->showNormal();
     this->activateWindow();
     this->raise();
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    Q_UNUSED(event);
+    m_model->onExit();
 }
