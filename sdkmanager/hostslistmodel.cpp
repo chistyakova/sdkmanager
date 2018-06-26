@@ -94,3 +94,16 @@ void HostsListModel::onClickText(const QModelIndex &index)
     bool curState = this->itemData(index).value(Qt::CheckStateRole).toBool();
     setData(index, !curState, Qt::CheckStateRole);
 }
+
+QString HostsListModel::getHosts()
+{
+    QString str = "";
+    for(int i=0; i<m_hosts.size(); i++)
+    {
+        if(m_hosts.at(i).second)
+        {
+            str+=m_hosts.at(i).first+" ";
+        }
+    }
+    return str;
+}

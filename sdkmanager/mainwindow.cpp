@@ -85,7 +85,7 @@ void MainWindow::on_pushButton_revertHosts_toggled(bool checked)
 
 void MainWindow::on_pushButtonSColor_depolyYes_clicked()
 {
-    runProcess("process.bat deploy "+dllControlMode());
+    runProcess("process.bat deploy "+dllControlMode()+" "+m_model->getHosts());
     ui->stackedWidgetHosts->setCurrentIndex(0);
 }
 
@@ -98,7 +98,7 @@ void MainWindow::on_pushButtonColor_depolyNo_clicked()
 
 void MainWindow::on_pushButtonSColor_revertYes_clicked()
 {
-    runProcess("process.bat reverthosts "+dllControlMode());
+    runProcess("process.bat reverthosts "+dllControlMode()+" "+m_model->getHosts());
     ui->stackedWidgetHosts->setCurrentIndex(0);
 }
 
