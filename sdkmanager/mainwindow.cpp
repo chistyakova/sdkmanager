@@ -36,6 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_model = new HostsListModel(this);
     ui->listViewHosts->setModel(m_model);
+    connect(ui->listViewHosts,SIGNAL(clicked(const QModelIndex)),
+            m_model, SLOT(onClickText(const QModelIndex)));
 
     on_hostChange();
     setWindowIcon(QIcon(":/img/icon-sdk.ico"));

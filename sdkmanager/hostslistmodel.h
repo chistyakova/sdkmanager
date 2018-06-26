@@ -22,6 +22,8 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role);
 
     void onExit();
+public slots:
+    void onClickText(const QModelIndex &index);
 private:
     QVector<pairType> m_hosts;
     QSettings         m_conf;

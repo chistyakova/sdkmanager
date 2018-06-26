@@ -64,8 +64,7 @@ bool HostsListModel::setData(const QModelIndex &index,
     qDebug()<<"setData";
     if(!index.isValid() || role != Qt::CheckStateRole)
         return false;
-
-    if(value == Qt::Checked)
+    if(value.toBool())
         m_hosts[index.row()].second = true;
     else
         m_hosts[index.row()].second = false;
@@ -88,4 +87,10 @@ void HostsListModel::onExit()
     {
         m_conf.setValue(QString("key%1").arg(i), m_hosts.at(i).second);
     }
+}
+
+void HostsListModel::onClickText(const QModelIndex &index)
+{
+    bool curState = this->itemData(index).value(Qt::CheckStateRole).toBool();
+    setData(index, !curState, Qt::CheckStateRole);
 }
