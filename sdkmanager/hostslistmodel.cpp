@@ -26,6 +26,10 @@ HostsListModel::HostsListModel(QObject *parent)
         file.close();
     }
 }
+HostsListModel::~HostsListModel()
+{
+    onExit();
+}
 
 int HostsListModel::rowCount(const QModelIndex & /* parent */) const
 {

@@ -41,9 +41,6 @@ public slots:
 
     void handleMessage(const QString& message);
 
-protected:
-    void closeEvent(QCloseEvent *event);
-
 private:
     Ui::MainWindow *ui;
     QProcess       m_process;

@@ -200,9 +200,3 @@ void MainWindow::handleMessage(const QString& message)
     this->activateWindow();
     this->raise();
 }
-
-void MainWindow::closeEvent(QCloseEvent *event)
-{
-    Q_UNUSED(event);
-    m_model->onExit();
-}
