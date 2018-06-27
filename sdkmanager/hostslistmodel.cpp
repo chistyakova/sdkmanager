@@ -66,7 +66,7 @@ QVariant HostsListModel::data(const QModelIndex &index, int role) const
 bool HostsListModel::setData(const QModelIndex &index,
                                 const QVariant &value, int role){
     qDebug()<<"setData";
-    if(!index.isValid() || role != Qt::CheckStateRole)
+    if(!index.isValid() || role == Qt::CheckStateRole)
         return false;
     if(value.toBool())
         m_hosts[index.row()].second = true;
@@ -95,8 +95,9 @@ void HostsListModel::onExit()
 
 void HostsListModel::onClickText(const QModelIndex &index)
 {
+    qDebug()<<"onClickText";
     bool curState = this->itemData(index).value(Qt::CheckStateRole).toBool();
-    setData(index, !curState, Qt::CheckStateRole);
+    setData(index, !curState, Qt::DisplayRole);
 }
 
 QString HostsListModel::getHosts()
