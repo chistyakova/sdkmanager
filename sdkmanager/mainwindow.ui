@@ -304,7 +304,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_MFD">
+                <widget class="QPushButton" name="pushButton_param1">
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
@@ -318,7 +318,7 @@
                   </size>
                  </property>
                  <property name="text">
-                  <string>MFD</string>
+                  <string>Param 1</string>
                  </property>
                  <property name="checkable">
                   <bool>true</bool>
@@ -326,7 +326,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_HUD">
+                <widget class="QPushButton" name="pushButton_param2">
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
@@ -340,7 +340,7 @@
                   </size>
                  </property>
                  <property name="text">
-                  <string>HUD</string>
+                  <string>Param 2</string>
                  </property>
                  <property name="checkable">
                   <bool>true</bool>
@@ -350,7 +350,7 @@
                <item>
                 <widget class="QStackedWidget" name="stackedWidgetHosts">
                  <property name="currentIndex">
-                  <number>2</number>
+                  <number>0</number>
                  </property>
                  <widget class="QWidget" name="page">
                   <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -450,7 +450,7 @@
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_6">
                      <item>
-                      <widget class="ColorButton" name="pushButtonSColor_depolyYes">
+                      <widget class="QPushButton" name="pushButtonSColor_depolyYes">
                        <property name="minimumSize">
                         <size>
                          <width>0</width>
@@ -463,7 +463,7 @@
                       </widget>
                      </item>
                      <item>
-                      <widget class="ColorButton" name="pushButtonColor_depolyNo">
+                      <widget class="QPushButton" name="pushButtonColor_depolyNo">
                        <property name="minimumSize">
                         <size>
                          <width>0</width>
@@ -515,7 +515,7 @@
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_8">
                      <item>
-                      <widget class="ColorButton" name="pushButtonSColor_revertYes">
+                      <widget class="QPushButton" name="pushButtonSColor_revertYes">
                        <property name="minimumSize">
                         <size>
                          <width>0</width>
@@ -528,7 +528,7 @@
                       </widget>
                      </item>
                      <item>
-                      <widget class="ColorButton" name="pushButtonColor_revertNo">
+                      <widget class="QPushButton" name="pushButtonColor_revertNo">
                        <property name="minimumSize">
                         <size>
                          <width>0</width>
@@ -549,8 +549,8 @@
               </layout>
               <zorder>stackedWidgetHosts</zorder>
               <zorder>label_2</zorder>
-              <zorder>pushButton_MFD</zorder>
-              <zorder>pushButton_HUD</zorder>
+              <zorder>pushButton_param1</zorder>
+              <zorder>pushButton_param2</zorder>
              </widget>
             </item>
            </layout>
@@ -656,11 +656,6 @@ p, li { white-space: pre-wrap; }
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
-  <customwidget>
-   <class>ColorButton</class>
-   <extends>QPushButton</extends>
-   <header>colorbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>MoveWidget</class>
    <extends>QWidget</extends>

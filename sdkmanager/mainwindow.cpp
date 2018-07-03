@@ -12,13 +12,6 @@ MainWindow::MainWindow(QWidget *parent) :
     qDebug() << "Constructor";
     ui->setupUi(this);
 
-    QFile _file(":/metro.qss");
-    if (_file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        QTextStream _in(&_file);
-        setStyleSheet( _in.readAll() );
-    }
-
     ui->stackedWidgetHosts->setCurrentIndex(0);
 
     QObject::connect(&m_process, SIGNAL(finished(int,QProcess::ExitStatus)),
@@ -26,13 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(&m_process, SIGNAL(readyReadStandardOutput()),
                      this, SLOT(on_readyReadStandartOutput()));
 
-    connect(ui->pushButton_MFD, SIGNAL(clicked()), this, SLOT(on_hostChange()));
-    connect(ui->pushButton_HUD, SIGNAL(clicked()), this, SLOT(on_hostChange()));
-
-    ui->pushButtonSColor_depolyYes->setMode(ColorButton::Mode2);
-    ui->pushButtonColor_depolyNo->setMode(ColorButton::Mode2);
-    ui->pushButtonSColor_revertYes->setMode(ColorButton::Mode2);
-    ui->pushButtonColor_revertNo->setMode(ColorButton::Mode2);
+    connect(ui->pushButton_param1, SIGNAL(clicked()), this, SLOT(on_hostChange()));
+    connect(ui->pushButton_param2, SIGNAL(clicked()), this, SLOT(on_hostChange()));
 
     m_model = new HostsListModel(this);
     ui->listViewHosts->setModel(m_model);
@@ -155,8 +143,8 @@ void MainWindow::setLockAll(bool lock)
     ui->pushButton_deploy->setEnabled(!lock);
     ui->pushButton_revertHosts->setEnabled(!lock);
 
-    ui->pushButton_MFD->setEnabled(!lock);
-    ui->pushButton_HUD->setEnabled(!lock);
+    ui->pushButton_param1->setEnabled(!lock);
+    ui->pushButton_param2->setEnabled(!lock);
 }
 
 void MainWindow::setUntoggledAll()
@@ -170,11 +158,11 @@ void MainWindow::setUntoggledAll()
 QString MainWindow::dllControlMode()
 {
     QString hostString = " ";
-    if(ui->pushButton_MFD->isChecked())
+    if(ui->pushButton_param1->isChecked())
         hostString+="1 ";
     else
         hostString+="0 ";
-    if(ui->pushButton_HUD->isChecked())
+    if(ui->pushButton_param2->isChecked())
         hostString+="1";
     else
         hostString+="0";
@@ -184,8 +172,8 @@ QString MainWindow::dllControlMode()
 void MainWindow::on_hostChange()
 {
     bool state = false;
-    if(ui->pushButton_MFD->isChecked() ||
-       ui->pushButton_HUD->isChecked())
+    if(ui->pushButton_param1->isChecked() ||
+       ui->pushButton_param2->isChecked())
     {
         state = true;
     }

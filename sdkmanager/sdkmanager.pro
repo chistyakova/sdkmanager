@@ -26,12 +26,10 @@ include(../qtsingleapplication/src/qtsingleapplication.pri)
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    colorbutton.cpp \
     movewidget.cpp \
     hostslistmodel.cpp
 
 HEADERS  += mainwindow.h \
-    colorbutton.h \
     movewidget.h \
     hostslistmodel.h
 
